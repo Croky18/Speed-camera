@@ -1,10 +1,8 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local spawnedCameras = {}
 
--- Blips en cameraradius instellen
 CreateThread(function()
     for _, cam in pairs(Config.CameraSpots) do
-        -- Blip toevoegen
         if Config.ShowBlips then
             local blip = AddBlipForCoord(cam.coords)
             SetBlipSprite(blip, 184)
@@ -17,12 +15,10 @@ CreateThread(function()
             EndTextCommandSetBlipName(blip)
         end
 
-        -- Detectie-radius fallback
         cam.detectionRadius = cam.detectionRadius or 15.0
     end
 end)
 
--- Snelheid omrekenen
 local function ConvertSpeed(speed)
     if Config.SpeedUnit == "mph" then
         return speed * 0.621371
@@ -31,14 +27,12 @@ local function ConvertSpeed(speed)
     end
 end
 
--- Flits visueel effect
 RegisterNetEvent("speedcamera:FlashEffect", function()
     StartScreenEffect("SwitchHUDIn", 0, false)
     Wait(300)
     StopScreenEffect("SwitchHUDIn")
 end)
 
--- Snelheidsdetectie loop
 CreateThread(function()
     while true do
         Wait(1500)
@@ -50,12 +44,10 @@ CreateThread(function()
         for _, cam in pairs(Config.CameraSpots) do
             local distance = #(coords - cam.coords)
 
-            -- Debug Marker
             if Config.DebugMode and distance < cam.detectionRadius then
                 DrawMarker(1, cam.coords.x, cam.coords.y, cam.coords.z - 0.5, 0.0, 0.0, 0.0, cam.detectionRadius, cam.detectionRadius, 3.0, 255, 0, 0, 100, false, true, 2, false, false, false, false)
             end
 
-            -- Detectie + boete
             if distance < cam.detectionRadius and speed > cam.speedLimit then
                 local PlayerData = QBCore.Functions.GetPlayerData()
                 local jobName = "unemployed"
@@ -84,7 +76,7 @@ CreateThread(function()
                     end
                 end
 
-                Wait(5000) -- cooldown voor detectie
+                Wait(5000)
                 break
             end
         end
