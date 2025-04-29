@@ -27,3 +27,33 @@ Dit script voegt realistische flitspalen toe aan je QBCore-server. Spelers die t
 2. Voeg het script toe aan je `server.cfg`:
    ```cfg
    ensure speed-camera
+----------------------------------------------------------------------------------------------------
+# 🚨 Speed Camera Script - QBCore
+
+This script adds realistic speed cameras to your QBCore server. Players who drive too fast will automatically be flashed, receive a notification, and get fined directly from their bank account. Includes visual flash effects.
+
+---
+
+## ⚠️ Important Notice
+
+- **❌ DO NOT RESELL**  
+  This script is released **for free** to support the FiveM community. **Reselling, reuploading, or distributing this script for commercial purposes is strictly prohibited** without the developer's permission.
+
+- **🛠 ESX version coming soon**  
+  Currently, the script is only compatible with **QBCore**, but we are working on a **full ESX-compatible version**, which will be released in a future update.
+
+- **🌐 Multi-language Support**  
+  The script supports multiple languages, easily configurable via `config.lua`. The following languages are available:
+  - 🇬🇧 English (default)
+  - 🇩🇪 German
+  - 🇯🇵 Japanese
+  - 🇳🇱 Dutch
+
+---
+
+## 🔧 Installation
+
+1. Download the files and place the folder inside your `resources` directory.
+2. Add the script to your `server.cfg`:
+   ```cfg
+   ensure speed-camera
