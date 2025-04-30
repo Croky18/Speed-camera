@@ -1,5 +1,11 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore, ESX
 local spawnedCameras = {}
+
+if Config.Framework == "qb" then
+    QBCore = exports['qb-core']:GetCoreObject()
+elseif Config.Framework == "esx" then
+    ESX = exports['es_extended']:getSharedObject()
+end
 
 CreateThread(function()
     for _, cam in pairs(Config.CameraSpots) do
@@ -14,17 +20,12 @@ CreateThread(function()
             AddTextComponentString("Flitspaal")
             EndTextCommandSetBlipName(blip)
         end
-
         cam.detectionRadius = cam.detectionRadius or 15.0
     end
 end)
 
 local function ConvertSpeed(speed)
-    if Config.SpeedUnit == "mph" then
-        return speed * 0.621371
-    else
-        return speed
-    end
+    return (Config.SpeedUnit == "mph") and speed * 0.621371 or speed
 end
 
 RegisterNetEvent("speedcamera:FlashEffect", function()
@@ -32,6 +33,29 @@ RegisterNetEvent("speedcamera:FlashEffect", function()
     Wait(300)
     StopScreenEffect("SwitchHUDIn")
 end)
+
+local function Notify(msg)
+    if Config.Framework == "qb" then
+        QBCore.Functions.Notify(msg, "error")
+    else
+        ESX.ShowNotification(msg)
+    end
+end
+
+local function GetPlayerJob()
+    if Config.Framework == "qb" then
+        local PlayerData = QBCore.Functions.GetPlayerData()
+        if PlayerData and PlayerData.job and PlayerData.job.name then
+            return PlayerData.job.name
+        end
+    elseif Config.Framework == "esx" then
+        local PlayerData = ESX.GetPlayerData()
+        if PlayerData and PlayerData.job and PlayerData.job.name then
+            return PlayerData.job.name
+        end
+    end
+    return "unemployed"
+end
 
 CreateThread(function()
     while true do
@@ -45,34 +69,21 @@ CreateThread(function()
             local distance = #(coords - cam.coords)
 
             if Config.DebugMode and distance < cam.detectionRadius then
-                DrawMarker(1, cam.coords.x, cam.coords.y, cam.coords.z - 0.5, 0.0, 0.0, 0.0, cam.detectionRadius, cam.detectionRadius, 3.0, 255, 0, 0, 100, false, true, 2, false, false, false, false)
+                DrawMarker(1, cam.coords.x, cam.coords.y, cam.coords.z - 0.5, 0, 0, 0, 0, 0, 0, cam.detectionRadius, cam.detectionRadius, 3.0, 255, 0, 0, 100, false, true, 2, false, false, false, false)
             end
 
             if distance < cam.detectionRadius and speed > cam.speedLimit then
-                local PlayerData = QBCore.Functions.GetPlayerData()
-                local jobName = "unemployed"
-                if PlayerData and PlayerData.job and PlayerData.job.name then
-                    jobName = PlayerData.job.name
-                end
-
-                local isExempt = false
-                if Config.ExemptJobs and type(Config.ExemptJobs) == "table" then
-                    isExempt = Config.ExemptJobs[jobName] == true
-                end
+                local jobName = GetPlayerJob()
+                local isExempt = Config.ExemptJobs and Config.ExemptJobs[jobName]
 
                 if not isExempt then
                     TriggerServerEvent("speedcamera:FinePlayer", math.floor(convertedSpeed), cam.speedLimit, cam.fineAmount)
                     TriggerEvent("speedcamera:FlashEffect")
 
-                    local lang = Config.Languages[Config.Language]
-                    if not lang then
-                        print("Fout: Taal niet gevonden: " .. tostring(Config.Language))
-                        lang = Config.Languages["en"]
-                    end
-
-                    if lang and lang.notificationSpeeding then
+                    local lang = Config.Languages[Config.Language] or Config.Languages["en"]
+                    if lang.notificationSpeeding then
                         local msg = string.format(lang.notificationSpeeding, math.floor(convertedSpeed), Config.SpeedUnit, cam.speedLimit, Config.SpeedUnit)
-                        QBCore.Functions.Notify(msg, "error")
+                        Notify(msg)
                     end
                 end
 
