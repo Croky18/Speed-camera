@@ -1,4 +1,4 @@
-# 🚨 Speed Camera Script - QBCore
+# 🚨 Speed Camera Script - QBCore/ESX
 
 Dit script voegt realistische flitspalen toe aan je QBCore-server. Spelers die te hard rijden worden automatisch geflitst, ontvangen een melding én krijgen een boete van hun bankrekening afgeschreven. Inclusief visuele effecten zoals een flits.
 
@@ -9,8 +9,12 @@ Dit script voegt realistische flitspalen toe aan je QBCore-server. Spelers die t
 - **❌ VERBODEN OM TE RESELLEN**  
   Dit script is gratis beschikbaar gesteld voor de FiveM-community. Het is **niet toegestaan om dit script te verkopen, reuploaden of op enige manier commercieel te verspreiden** zonder toestemming van de ontwikkelaar.
 
-- **🛠 ESX-versie komt binnenkort**  
-  Op dit moment is het script alleen beschikbaar voor **QBCore**, maar we zijn bezig met een **volledige ESX-ondersteuning** in een toekomstige update.
+** 🛠 Framework Ondersteuning
+
+✅ QBCore (volledig ondersteund)
+
+✅ ESX (volledig ondersteund vanaf deze versie)
+  
 
 - **🌐 Taalondersteuning**
   Het script bevat meertalige ondersteuning die je eenvoudig kunt instellen in de `config.lua`. De volgende talen zijn beschikbaar:
@@ -28,7 +32,7 @@ Dit script voegt realistische flitspalen toe aan je QBCore-server. Spelers die t
    ```cfg
    ensure speed-camera
 ----------------------------------------------------------------------------------------------------
-# 🚨 Speed Camera Script - QBCore
+# 🚨 Speed Camera Script - QBCore/ESX
 
 This script adds realistic speed cameras to your QBCore server. Players who drive too fast will automatically be flashed, receive a notification, and get fined directly from their bank account. Includes visual flash effects.
 
@@ -39,8 +43,11 @@ This script adds realistic speed cameras to your QBCore server. Players who driv
 - **❌ DO NOT RESELL**  
   This script is released **for free** to support the FiveM community. **Reselling, reuploading, or distributing this script for commercial purposes is strictly prohibited** without the developer's permission.
 
-- **🛠 ESX version coming soon**  
-  Currently, the script is only compatible with **QBCore**, but we are working on a **full ESX-compatible version**, which will be released in a future update.
+** 🛠 Framework Support
+
+✅ QBCore (fully supported)
+
+✅ ESX (fully supported from this version)
 
 - **🌐 Multi-language Support**  
   The script supports multiple languages, easily configurable via `config.lua`. The following languages are available:
