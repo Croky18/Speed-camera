@@ -2,8 +2,8 @@ fx_version 'cerulean'
 game 'gta5'
 
 author 'croky19'
-description 'Speed Camera'
-version '1.0.0'
+description 'Speed Camera For ESX/QB'
+version '1.1.0'
 
 shared_script 'config.lua'
 
